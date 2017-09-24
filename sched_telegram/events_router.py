@@ -37,8 +37,8 @@ async def _handle_text_message(msg):
 
     if msg_text.startswith("/"):
         cmd = msg_text.split(" ")[0]
-        command_handler = command_mapping[chat_type][cmd]
-        if command_handler:
+        if chat_type in command_mapping and cmd in command_mapping[chat_type]:
+            command_handler = command_mapping[chat_type][cmd]
             await command_handler(msg, bot, {})
         else:
             logger.warning(f"Unknown command: {cmd}")
